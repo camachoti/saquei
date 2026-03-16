@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'app-file-demo',
     standalone: true,
-    imports: [CommonModule, FileUploadModule, ToastModule, ButtonModule],
+    imports: [FileUploadModule, ToastModule, ButtonModule],
     template: `<p-toast />
         <div class="grid grid-cols-12 gap-8">
             <div class="col-span-full lg:col-span-6">
@@ -19,9 +18,13 @@ import { ToastModule } from 'primeng/toast';
                             <div>Drag and drop files to here to upload.</div>
                         </ng-template>
                         <ng-template #content>
-                            <ul *ngIf="uploadedFiles.length">
-                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-                            </ul>
+                            @if (uploadedFiles.length) {
+                                <ul>
+                                    @for (file of uploadedFiles; track file) {
+                                        <li>{{ file.name }} - {{ file.size }} bytes</li>
+                                    }
+                                </ul>
+                            }
                         </ng-template>
                     </p-fileupload>
                 </div>

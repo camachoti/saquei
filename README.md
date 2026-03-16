@@ -1,6 +1,6 @@
 # core-monolith-study
 
-Monorepo combining a **Spring Boot 3 backend** and an **Angular 19 frontend** for a full-stack authentication study project.
+Monorepo combining a **Spring Boot 3 backend** and an **Angular 21 frontend** for a full-stack authentication study project.
 
 ```
 core-monolith-study/
@@ -130,7 +130,7 @@ CORS is configured on the backend to allow `http://localhost:4200`.
 | Backend | Spring Boot 3.4.4, Java 21, Spring Security, JWT (Auth0 v4) |
 | Persistence | Spring Data JPA, PostgreSQL (prod), H2 (test) |
 | Cache/Session | Spring Data Redis |
-| Frontend | Angular 19, PrimeNG 19, Tailwind CSS 3, Chart.js |
+| Frontend | Angular 21, PrimeNG 21, Tailwind CSS 3, Chart.js |
 | Build | Maven (backend), Angular CLI / npm (frontend) |
 | Infrastructure | Docker Compose |
 

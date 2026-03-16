@@ -1,33 +1,30 @@
 import { Component } from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {Router, RouterModule} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import {AppFloatingConfigurator} from "../../../layout/component/app.floatingconfigurator";
-import {LoginService} from "../../../services/login.service";
-import {MessageService} from "primeng/api";
-import {Message} from "primeng/message";
-import {Toast} from "primeng/toast";
-import {NgIf} from "@angular/common";
+import { AppFloatingConfigurator } from '../../../layout/component/app.floatingconfigurator';
+import { LoginService } from '../../../services/login.service';
+import { MessageService } from 'primeng/api';
+import { Message } from 'primeng/message';
+import { Toast } from 'primeng/toast';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, Message, NgIf],
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, Message],
     templateUrl: './signup.component.html',
     providers: [LoginService, MessageService]
 })
 export class SignupComponent {
-
     constructor(
-      private readonly loginService: LoginService,
-      private readonly router: Router,
-      private readonly service: MessageService
-    ){
-    }
+        private readonly loginService: LoginService,
+        private readonly router: Router,
+        private readonly service: MessageService
+    ) {}
 
     name: string = '';
 
@@ -53,18 +50,18 @@ export class SignupComponent {
             },
             error: (error) => {
                 debugger;
-                if(error.status == 401){
-                    this.errorMessage = "Login Failed. Please check your credentials.";
+                if (error.status == 401) {
+                    this.errorMessage = 'Login Failed. Please check your credentials.';
                 } else {
-                    this.errorMessage = "Unexpected error. Please try again later.";
+                    this.errorMessage = 'Unexpected error. Please try again later.';
                 }
                 this.showMessage();
             }
-        })
+        });
         this.isLoading = false;
     }
 
-    showMessage(  ) {
+    showMessage() {
         this.visible.set(true);
 
         setTimeout(() => {

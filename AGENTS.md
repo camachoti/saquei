@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-Full-stack monorepo: **Angular 19 frontend** + **Spring Boot 3.4.4 backend**.
+Full-stack monorepo: **Angular 21 frontend** + **Spring Boot 3.4.4 backend**.
 
 ```
 core-monolith-study/
 ├── backend/    # Java 21, Maven, Spring Boot, REST API
-├── frontend/   # Angular 19, PrimeNG 19, Tailwind CSS
+├── frontend/   # Angular 21, PrimeNG 21, Tailwind CSS
 ├── docker-compose.yml   # PostgreSQL 16 + Redis Stack
 ├── .gitignore
 └── README.md
@@ -70,9 +70,9 @@ Angular :4200  →  POST /auth/login   →  Spring Boot :8081  →  PostgreSQL
 
 ## Frontend Conventions
 
-- **Standalone components** (Angular 19, no NgModules)
+- **Standalone components** (Angular 21, no NgModules)
 - Two `app.config.ts` / `app.routes.ts` exist at both `src/` and `src/app/` — the root `src/app.config.ts` is the active entry used by `src/main.ts`
-- UI library: **PrimeNG 19** with `Aura` theme preset; dark mode toggle via `.app-dark` CSS class
+- UI library: **PrimeNG 21** with `Aura` theme preset; dark mode toggle via `.app-dark` CSS class; `@angular/cdk` is now a required peer dep
 - Styles: **SCSS** per component + global Tailwind (`src/tailwind.css`) + PrimeUI utilities
 - Auth pages: `src/app/pages/auth/` (login + signup); protected layout: `src/app/components/layout/`
 - Services in `src/app/services/` (auth) and `src/app/pages/service/` (PrimeNG demo data services)
