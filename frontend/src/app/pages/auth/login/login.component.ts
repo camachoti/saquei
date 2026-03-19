@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -6,73 +6,83 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { AppFloatingConfigurator } from '../../../layout/component/app.floatingconfigurator';
 import { LoginService } from '../../../services/login.service';
 import { MessageService } from 'primeng/api';
-import { Message, MessageModule } from 'primeng/message';
+import { Message } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { finalize } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LanguageService } from '../../../services/language.service';
+import { TranslationService } from '../../../services/translation.service';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator, Message, ToastModule],
+    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, Message, ToastModule],
     templateUrl: './login.component.html',
     providers: [LoginService, MessageService]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     constructor(
         private readonly loginService: LoginService,
         private readonly router: Router,
-        private readonly service: MessageService
+        private readonly service: MessageService,
+        private readonly languageService: LanguageService,
+        private readonly translationService: TranslationService
     ) {}
 
     email: string = '';
-
     password: string = '';
-
     checked: boolean = false;
-
-    visible: any = new Map();
-
     errorMessage: string = '';
-
     isLoading: boolean = false;
+    private translations: Record<string, string> = {};
+
+    ngOnInit() {
+        this.loadTranslations();
+    }
 
     login() {
         if (this.isLoading) return;
+        this.errorMessage = '';
         this.isLoading = true;
-        this.loginService.login(this.email, this.password).subscribe({
-            next: () => {
-                this.service.add({ severity: 'success', summary: 'Success Message', detail: 'Message sent' });
-                this.router.navigate(['/logedin']);
-            },
-            error: (error) => {
-                debugger;
-                if (error.status == 401) {
-                    this.errorMessage = 'Login Failed. Please check your credentials.';
-                } else {
-                    this.errorMessage = 'Unexpected error. Please try again later.';
+        this.loginService.login(this.email, this.password)
+            .pipe(finalize(() => (this.isLoading = false)))
+            .subscribe({
+                next: () => {
+                    this.router.navigate(['/logedin']);
+                },
+                error: (error: HttpErrorResponse) => {
+                    if (error.status === 401) {
+                        this.errorMessage = this.translate('auth.login.invalid.credentials');
+                    } else {
+                        this.errorMessage = this.translate('app.unexpected.error');
+                    }
                 }
-                this.showMessage();
-            }
-        });
-        this.isLoading = false;
+            });
     }
 
-    showMessage() {
-        this.visible.set(true);
+    private loadTranslations() {
+        this.translationService.getTranslations(this.languageService.getLanguage()).subscribe({
+            next: (translations) => {
+                this.translations = translations;
+            },
+            error: () => {
+                this.translations = {};
+            }
+        });
+    }
 
-        setTimeout(() => {
-            this.visible.set(false);
-        }, 3500);
+    translate(key: string) {
+        return this.translations[key];
     }
 
     forgotPassword(event: Event) {
         event.preventDefault();
-        debugger;
-        // Implement forgot password logic
-        this.service.add({ severity: 'warn', summary: 'Feature not implemented yet', detail: 'Future Updates Coming...' });
+        this.service.add({
+            severity: 'warn',
+            summary: this.translate('auth.login.forgot.password.summary'),
+            detail: this.translate('auth.login.forgot.password.detail')
+        });
     }
-
-    protected readonly onsubmit = onsubmit;
 }

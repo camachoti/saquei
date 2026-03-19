@@ -1,0 +1,85 @@
+<div class="card max-w-2xl">
+    @if (isTranslationsLoading) {
+        <p-skeleton width="18rem" height="1.5rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="24rem" height="1rem" styleClass="mb-6"></p-skeleton>
+
+        <p-skeleton width="12rem" height="1rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="100%" height="2.8rem" styleClass="mb-4"></p-skeleton>
+
+        <p-skeleton width="10rem" height="1rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="100%" height="2.8rem" styleClass="mb-4"></p-skeleton>
+
+        <p-skeleton width="14rem" height="1rem" styleClass="mb-2"></p-skeleton>
+        <p-skeleton width="100%" height="2.8rem" styleClass="mb-6"></p-skeleton>
+
+        <p-skeleton width="9rem" height="2.5rem"></p-skeleton>
+    } @else {
+        <div class="font-semibold text-xl mb-2">{{ translate('account.management.title') }}</div>
+        <p class="text-muted-color mb-6">{{ translate('account.management.subtitle') }}</p>
+
+        <form #changePasswordForm="ngForm" (ngSubmit)="changePassword()" novalidate>
+            @if (successMessage) {
+                <p-message severity="success" [text]="successMessage"></p-message>
+                <br />
+            }
+
+            @if (errorMessage) {
+                <p-message severity="error" [text]="errorMessage"></p-message>
+                <br />
+            }
+
+            <label for="currentPassword" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">
+                {{ translate('account.change.password.current.label') }}
+            </label>
+            <p-password
+                inputId="currentPassword"
+                name="currentPassword"
+                [(ngModel)]="currentPassword"
+                [placeholder]="translate('account.change.password.current.placeholder')"
+                [toggleMask]="true"
+                [feedback]="false"
+                styleClass="mb-4"
+                [fluid]="true"
+                required
+            ></p-password>
+
+            <label for="newPassword" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">
+                {{ translate('account.change.password.new.label') }}
+            </label>
+            <p-password
+                inputId="newPassword"
+                name="newPassword"
+                [(ngModel)]="newPassword"
+                [placeholder]="translate('account.change.password.new.placeholder')"
+                [toggleMask]="true"
+                [feedback]="false"
+                styleClass="mb-4"
+                [fluid]="true"
+                required
+            ></p-password>
+
+            <label for="confirmNewPassword" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">
+                {{ translate('account.change.password.confirm.label') }}
+            </label>
+            <p-password
+                inputId="confirmNewPassword"
+                name="confirmNewPassword"
+                [(ngModel)]="confirmNewPassword"
+                [placeholder]="translate('account.change.password.confirm.placeholder')"
+                [toggleMask]="true"
+                [feedback]="false"
+                styleClass="mb-6"
+                [fluid]="true"
+                required
+            ></p-password>
+
+            <p-button
+                type="submit"
+                [label]="translate('account.change.password.submit')"
+                [loading]="isLoading"
+                [disabled]="changePasswordForm.invalid || isLoading"
+            ></p-button>
+        </form>
+    }
+</div>
+

@@ -1,8 +1,5 @@
-<app-floating-configurator />
-<div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-    <div class="flex flex-col items-center justify-center">
-        <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-            <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
+<div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
+    <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20" style="border-radius: 53px">
                 <p-toast />
                 <div class="text-center mb-8">
                     <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-8 w-16 shrink-0 mx-auto">
@@ -22,8 +19,8 @@
                             />
                         </g>
                     </svg>
-                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Welcome to PrimeLand!</div>
-                    <span class="text-muted-color font-medium">Sign in to continue</span>
+                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">{{ translate('auth.login.title') }}</div>
+                    <span class="text-muted-color font-medium">{{ translate('auth.login.subtitle') }}</span>
                 </div>
                 <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
                     @if (errorMessage) {
@@ -31,13 +28,13 @@
                     }
                     <br />
                     <div>
-                        <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
+                        <label for="email1" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">{{ translate('auth.login.email.label') }}</label>
                         <input
                             pInputText
                             id="email1"
                             name="email"
                             type="email"
-                            placeholder="Email address"
+                            [placeholder]="translate('auth.login.email.placeholder')"
                             class="w-full md:w-[30rem] mb-8"
                             [(ngModel)]="email"
                             required
@@ -47,12 +44,12 @@
                             #emailInput="ngModel"
                         />
 
-                        <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
+                        <label for="password1" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">{{ translate('auth.login.password.label') }}</label>
                         <p-password
                             id="password1"
                             name="password"
                             [(ngModel)]="password"
-                            placeholder="Password"
+                            [placeholder]="translate('auth.login.password.placeholder')"
                             [toggleMask]="true"
                             styleClass="mb-4"
                             [fluid]="true"
@@ -66,15 +63,13 @@
                         <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                             <div class="flex items-center">
                                 <p-checkbox [(ngModel)]="checked" disabled="true" name="rememberMe" id="rememberme1" binary class="mr-2"></p-checkbox>
-                                <label for="rememberme1">Remember me</label>
+                                <label for="rememberme1">{{ translate('auth.login.remember') }}</label>
                             </div>
-                            <a href="#" class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" (click)="forgotPassword($event)">Forgot password?</a>
+                            <a href="#" class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" (click)="forgotPassword($event)">{{ translate('auth.login.forgot.password') }}</a>
                         </div>
 
-                        <p-button label="Sign In" styleClass="w-full" type="submit" [loading]="isLoading" [disabled]="loginForm.invalid || isLoading"></p-button>
+                        <p-button [label]="translate('auth.login.submit')" styleClass="w-full" type="submit" [loading]="isLoading" [disabled]="loginForm.invalid || isLoading"></p-button>
                     </div>
                 </form>
-            </div>
         </div>
-    </div>
 </div>

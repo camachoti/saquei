@@ -5,13 +5,23 @@
 Full-stack monorepo: **Angular 21 frontend** + **Spring Boot 3.4.4 backend**.
 
 ```
-core-monolith-study/
+saquei/
 ├── backend/    # Java 21, Maven, Spring Boot, REST API
 ├── frontend/   # Angular 21, PrimeNG 21, Tailwind CSS
 ├── docker-compose.yml   # PostgreSQL 16 + Redis Stack
 ├── .gitignore
 └── README.md
 ```
+
+---
+
+## AI Coding Guidelines (Global)
+
+- Write all code identifiers in English (`class`, `interface`, `type`, `enum`, variables, methods, functions, constants, files, and folders).
+- Use clear and descriptive class names in **PascalCase** (e.g. `UserProfileService`, `AuthController`).
+- Write all source code comments in English.
+- Comments must explain intent, constraints, or non-obvious decisions; avoid obvious comments.
+- Keep language consistent across backend and frontend code.
 
 ---
 
@@ -36,7 +46,7 @@ cd backend
 cd frontend
 npm install                 # first time only
 npm start                   # dev server → http://localhost:4200
-npm run build               # production build → dist/core-frontend-study/
+npm run build               # production build → dist/saquei/
 npm test                    # Karma/Jasmine unit tests
 npm run format              # Prettier formatting
 ```
@@ -71,6 +81,7 @@ Angular :4200  →  POST /auth/login   →  Spring Boot :8081  →  PostgreSQL
 ## Frontend Conventions
 
 - **Standalone components** (Angular 21, no NgModules)
+- **Template rule for AI/codegen:** always prefer external HTML templates (`templateUrl`) for Angular components; avoid inline `template` strings in `.ts` files
 - Two `app.config.ts` / `app.routes.ts` exist at both `src/` and `src/app/` — the root `src/app.config.ts` is the active entry used by `src/main.ts`
 - UI library: **PrimeNG 21** with `Aura` theme preset; dark mode toggle via `.app-dark` CSS class; `@angular/cdk` is now a required peer dep
 - Styles: **SCSS** per component + global Tailwind (`src/tailwind.css`) + PrimeUI utilities

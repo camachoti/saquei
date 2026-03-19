@@ -10,42 +10,7 @@ import { NodeService } from '../service/node.service';
     selector: 'app-tree-demo',
     standalone: true,
     imports: [FormsModule, TreeModule, TreeTableModule],
-    template: `
-        <div class="card">
-            <div class="font-semibold text-xl">Tree</div>
-            <p-tree [value]="treeValue" selectionMode="checkbox" [(selection)]="selectedTreeValue"></p-tree>
-        </div>
-
-        <div class="card">
-            <div class="font-semibold text-xl mb-4">TreeTable</div>
-            <p-treetable [value]="treeTableValue" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectedTreeTableValue" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template #header let-columns>
-                    <tr>
-                        @for (col of columns; track col) {
-                            <th>
-                                {{ col.header }}
-                            </th>
-                        }
-                    </tr>
-                </ng-template>
-                <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                        @for (col of columns; track col; let i = $index) {
-                            <td>
-                                @if (i === 0) {
-                                    <p-treeTableToggler [rowNode]="rowNode" />
-                                }
-                                @if (i === 0) {
-                                    <p-treeTableCheckbox [value]="rowNode" />
-                                }
-                                {{ rowData[col.field] }}
-                            </td>
-                        }
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </div>
-    `,
+    templateUrl: './treedemo.html',
     providers: [NodeService]
 })
 export class TreeDemo implements OnInit {

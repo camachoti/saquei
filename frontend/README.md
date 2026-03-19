@@ -2,6 +2,13 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
 
+## AI Coding Guidelines
+
+Canonical source: `../AGENTS.md`.
+
+- Use English for all identifiers and source code comments.
+- Use clear and descriptive `PascalCase` names for classes, types, and components.
+- Write comments only for intent, constraints, or non-obvious decisions.
 
 
 ## Prerequisites

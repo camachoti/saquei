@@ -1,5 +1,13 @@
 # Getting Started
 
+## AI Coding Guidelines
+
+Canonical source: `../AGENTS.md`.
+
+- Use English for all identifiers and source code comments.
+- Use clear and descriptive `PascalCase` names for classes and types.
+- Write comments only for intent, constraints, or non-obvious decisions.
+
 ## 1. Install PostgreSQL
 
 ```bash

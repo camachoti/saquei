@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "core-frontend-study": {
+        "saquei": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/core-frontend-study",
+                        "outputPath": "dist/saquei",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [
@@ -64,10 +64,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "core-frontend-study:build:production"
+                            "buildTarget": "saquei:build:production"
                         },
                         "development": {
-                            "buildTarget": "core-frontend-study:build:development"
+                            "buildTarget": "saquei:build:development"
                         }
                     },
                     "defaultConfiguration": "development"

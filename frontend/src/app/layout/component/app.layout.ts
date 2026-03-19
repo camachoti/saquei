@@ -15,19 +15,7 @@ import {MessageService} from "primeng/api";
     standalone: true,
     imports: [CommonModule, AppTopbar, AppSidebar, RouterModule, AppFooter, Toast],
     providers: [MessageService],
-    template: `<div class="layout-wrapper" [ngClass]="containerClass">
-        <app-topbar></app-topbar>
-        <app-sidebar></app-sidebar>
-        <p-toast/>
-        <div class="layout-main-container">
-            <div class="layout-main">
-                <router-outlet></router-outlet>
-            </div>
-            <app-footer></app-footer>
-        </div>
-        <div class="layout-mask animate-fadein"></div>
-    </div> `
-})
+    templateUrl: './app.layout.html'})
 export class AppLayout {
     overlayMenuOpenSubscription: Subscription;
 
