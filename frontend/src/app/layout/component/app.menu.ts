@@ -70,9 +70,9 @@ export class AppMenu {
                         ]
                     },
                     {
-                        label: 'Crud',
+                        label: 'User Permissions',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/logedin/pages/crud']
+                        routerLink: ['/logedin/pages/permissions']
                     },
                     {
                         label: 'Not Found',
