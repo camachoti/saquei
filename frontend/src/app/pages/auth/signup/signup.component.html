@@ -92,10 +92,10 @@
 
                         <div class="flex items-center justify-between mt-2 mb-8 gap-8">
                             <div class="flex items-center"></div>
-                            <a href="#" class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" (click)="rediretLogin($event)">{{ translate('auth.signup.already.registered') }}</a>
+                            <a href="#" class="font-medium no-underline ml-2 text-right cursor-pointer text-primary" (click)="redirectToLogin($event)">{{ translate('auth.signup.already.registered') }}</a>
                         </div>
 
-                        <p-button [label]="translate('auth.signup.submit')" styleClass="w-full" type="submit" [loading]="isLoading" [disabled]="loginForm.invalid || isLoading"></p-button>
+                        <p-button [label]="translate('auth.signup.submit')" styleClass="w-full" type="submit" [loading]="isLoading" [disabled]="loginForm.invalid || password !== repeatPassword || isLoading"></p-button>
                     </div>
                 </form>
             </div>

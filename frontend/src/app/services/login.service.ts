@@ -1,16 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {tap, throwError} from 'rxjs';
-import {LoginResponse} from '../models/login-response.type';
-import {catchError} from 'rxjs/operators';
+import { tap, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { API_BASE_URL } from '../app.constants';
+import { LoginResponse } from '../models/login-response.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  apiUrl: string = "http://localhost:8081/auth"
+  private readonly apiUrl = `${API_BASE_URL}/auth`;
 
-  constructor(private readonly httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) {}
 
   login(username: string, password: string) {
     return this.httpClient.post<LoginResponse>(`${this.apiUrl}/login`, { username, password }).pipe(
@@ -20,16 +21,13 @@ export class LoginService {
       }),
       catchError((error) => {
         console.error('Login error:', error);
-        return throwError(() => error); // Re-throw the error to handle it further up the chain
+        return throwError(() => error);
       })
     );
   }
 
-  signup(name: string, username: string, password: string){
-    return this.httpClient.post<LoginResponse>(this.apiUrl + "/register", { name, username, password }).pipe(
-      tap((value) => {
-      })
-    )
+  signup(name: string, username: string, password: string) {
+    return this.httpClient.post<LoginResponse>(`${this.apiUrl}/register`, { name, username, password });
   }
 
   logout() {
@@ -52,5 +50,4 @@ export class LoginService {
       responseType: 'text'
     });
   }
-
 }

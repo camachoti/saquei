@@ -46,6 +46,8 @@ build/
 !**/src/test/**/target/
 
 # Misc
+.codex/
+.codex
 .sass-cache/
 /frontend/connect.lock
 /frontend/libpeerconnection.log
@@ -54,4 +56,3 @@ build/
 .DS_Store
 Thumbs.db
 HELP.md
-

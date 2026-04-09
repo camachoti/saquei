@@ -66,7 +66,7 @@ export class TopbarWidget implements OnInit, OnDestroy {
     }
 
     private translate(key: string) {
-        return this.translations[key];
+        return this.translations[key] ?? key;
     }
 
     ngOnDestroy() {

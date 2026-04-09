@@ -1,6 +1,5 @@
 package com.br.corebackend.api;
 
-import lombok.RequiredArgsConstructor;
 import jakarta.validation.ValidationException;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
@@ -30,6 +28,18 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final MessageSource messageSource;
+
+    public AuthController(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            TokenService tokenService,
+            MessageSource messageSource
+    ) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
+        this.messageSource = messageSource;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO body) {
