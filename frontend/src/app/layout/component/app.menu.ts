@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { APP_HOME_URL } from '../../app.constants';
 import { AppMenuitem } from './app.menuitem';
 
 @Component({
@@ -16,37 +17,37 @@ export class AppMenu {
         this.model = [
             {
                 label: 'Home',
-                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
+                items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: [APP_HOME_URL] }]
             },
             {
                 label: 'UI Components',
                 items: [
-                    { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/logedin', 'uikit', 'formlayout'] },
-                    { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: ['/logedin', 'uikit', 'input'] },
-                    { label: 'Button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: ['/logedin', 'uikit', 'button'] },
-                    { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/logedin', 'uikit', 'table'] },
-                    { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/logedin', 'uikit', 'list'] },
-                    { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: ['/logedin', 'uikit', 'tree'] },
-                    { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/logedin', 'uikit', 'panel'] },
-                    { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/logedin', 'uikit', 'overlay'] },
-                    { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/logedin', 'uikit', 'media'] },
-                    { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/logedin', 'uikit', 'menu'] },
-                    { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/logedin', 'uikit', 'message'] },
-                    { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/logedin', 'uikit', 'file'] },
-                    { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/logedin', 'uikit', 'charts'] },
-                    { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/logedin', 'uikit', 'timeline'] },
-                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/logedin', 'uikit', 'misc'] }
+                    { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: [APP_HOME_URL, 'uikit', 'formlayout'] },
+                    { label: 'Input', icon: 'pi pi-fw pi-check-square', routerLink: [APP_HOME_URL, 'uikit', 'input'] },
+                    { label: 'Button', icon: 'pi pi-fw pi-mobile', class: 'rotated-icon', routerLink: [APP_HOME_URL, 'uikit', 'button'] },
+                    { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: [APP_HOME_URL, 'uikit', 'table'] },
+                    { label: 'List', icon: 'pi pi-fw pi-list', routerLink: [APP_HOME_URL, 'uikit', 'list'] },
+                    { label: 'Tree', icon: 'pi pi-fw pi-share-alt', routerLink: [APP_HOME_URL, 'uikit', 'tree'] },
+                    { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: [APP_HOME_URL, 'uikit', 'panel'] },
+                    { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: [APP_HOME_URL, 'uikit', 'overlay'] },
+                    { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: [APP_HOME_URL, 'uikit', 'media'] },
+                    { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: [APP_HOME_URL, 'uikit', 'menu'] },
+                    { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: [APP_HOME_URL, 'uikit', 'message'] },
+                    { label: 'File', icon: 'pi pi-fw pi-file', routerLink: [APP_HOME_URL, 'uikit', 'file'] },
+                    { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: [APP_HOME_URL, 'uikit', 'charts'] },
+                    { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: [APP_HOME_URL, 'uikit', 'timeline'] },
+                    { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: [APP_HOME_URL, 'uikit', 'misc'] }
                 ]
             },
             {
                 label: 'Pages',
                 icon: 'pi pi-fw pi-briefcase',
-                routerLink: ['/pages'],
+                routerLink: [APP_HOME_URL, 'pages', 'documentation'],
                 items: [
                     {
                         label: 'Landing',
                         icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/landing']
+                        routerLink: ['/']
                     },
                     {
                         label: 'Auth',
@@ -72,17 +73,17 @@ export class AppMenu {
                     {
                         label: 'User Permissions',
                         icon: 'pi pi-fw pi-pencil',
-                        routerLink: ['/logedin/pages/permissions']
+                        routerLink: [APP_HOME_URL, 'pages', 'permissions']
                     },
                     {
                         label: 'Not Found',
                         icon: 'pi pi-fw pi-exclamation-circle',
-                        routerLink: ['/logedin/pages/notfound']
+                        routerLink: ['/notfound']
                     },
                     {
                         label: 'Empty',
                         icon: 'pi pi-fw pi-circle-off',
-                        routerLink: ['/logedin/pages/empty']
+                        routerLink: [APP_HOME_URL, 'pages', 'empty']
                     }
                 ]
             },

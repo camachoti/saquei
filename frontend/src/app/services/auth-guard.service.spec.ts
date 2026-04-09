@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router, RouterStateSnapshot } from '@angular/router';
+import { APP_HOME_URL, LOGIN_URL } from '../app.constants';
 import { AuthGuard } from './auth-guard.service';
 
 describe('AuthGuardService', () => {
@@ -21,12 +22,12 @@ describe('AuthGuardService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should redirect authenticated users from root to /logedin', () => {
+  it('should redirect authenticated users from root to the app shell', () => {
     sessionStorage.setItem('auth-token', 'token');
 
     const result = service.canActivate({} as any, makeState('/'));
 
-    expect(result).toEqual(router.parseUrl('/logedin'));
+    expect(result).toEqual(router.parseUrl(APP_HOME_URL));
   });
 
   it('should allow unauthenticated users to access root', () => {
@@ -35,9 +36,9 @@ describe('AuthGuardService', () => {
     expect(result).toBeTrue();
   });
 
-  it('should redirect unauthenticated users from protected routes to root', () => {
-    const result = service.canActivate({} as any, makeState('/logedin'));
+  it('should redirect unauthenticated users from protected routes to login', () => {
+    const result = service.canActivate({} as any, makeState(APP_HOME_URL));
 
-    expect(result).toEqual(router.parseUrl('/'));
+    expect(result).toEqual(router.parseUrl(LOGIN_URL));
   });
 });

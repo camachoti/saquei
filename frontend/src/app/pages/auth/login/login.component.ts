@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -6,21 +7,21 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { LoginService } from '../../../services/login.service';
 import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { APP_HOME_URL } from '../../../app.constants';
 import { LanguageService } from '../../../services/language.service';
+import { LoginService } from '../../../services/login.service';
 import { TranslationService } from '../../../services/translation.service';
 
 @Component({
     selector: 'app-login',
-    standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, Message, ToastModule],
+    imports: [CommonModule, ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, Message, ToastModule],
     templateUrl: './login.component.html',
-    providers: [LoginService, MessageService]
+    providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
     constructor(
@@ -50,13 +51,13 @@ export class LoginComponent implements OnInit {
             .pipe(finalize(() => (this.isLoading = false)))
             .subscribe({
                 next: () => {
-                    this.router.navigate(['/logedin']);
+                    this.router.navigate([APP_HOME_URL]);
                 },
                 error: (error: HttpErrorResponse) => {
                     if (error.status === 401) {
-                        this.errorMessage = this.translate('auth.login.invalid.credentials');
+                        this.errorMessage = this.translate('auth.login.invalid.credentials', 'Login failed. Please check your credentials.');
                     } else {
-                        this.errorMessage = this.translate('app.unexpected.error');
+                        this.errorMessage = this.translate('app.unexpected.error', 'Unexpected error. Please try again later.');
                     }
                 }
             });
@@ -73,16 +74,16 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    translate(key: string) {
-        return this.translations[key];
+    translate(key: string, fallback = key) {
+        return this.translations[key] ?? fallback;
     }
 
     forgotPassword(event: Event) {
         event.preventDefault();
         this.service.add({
             severity: 'warn',
-            summary: this.translate('auth.login.forgot.password.summary'),
-            detail: this.translate('auth.login.forgot.password.detail')
+            summary: this.translate('auth.login.forgot.password.summary', 'Password recovery unavailable'),
+            detail: this.translate('auth.login.forgot.password.detail', 'Contact support to recover your password.')
         });
     }
 }

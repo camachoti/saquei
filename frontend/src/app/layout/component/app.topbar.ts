@@ -3,6 +3,7 @@ import { ConfirmationService } from 'primeng/api';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
+import { APP_HOME_URL, LOGIN_URL } from '../../app.constants';
 import { AppConfigurator } from './app.configurator';
 import { LayoutService } from '../service/layout.service';
 import { LoginService } from '../../services/login.service';
@@ -84,7 +85,7 @@ export class AppTopbar {
     }
 
     navigateToAccount() {
-        this.router.navigate(['/logedin/account']);
+        this.router.navigate([APP_HOME_URL, 'account']);
     }
 
     logout() {
@@ -96,7 +97,7 @@ export class AppTopbar {
             acceptButtonStyleClass: 'p-button-danger',
             accept: () => {
                 this.loginService.logout();
-                this.router.navigate(['/']);
+                this.router.navigate([LOGIN_URL]);
             }
         });
     }

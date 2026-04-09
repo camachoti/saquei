@@ -7,19 +7,18 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { LoginService } from '../../../services/login.service';
-import { MessageService } from 'primeng/api';
 import { Message } from 'primeng/message';
 import { finalize } from 'rxjs/operators';
+import { LOGIN_URL } from '../../../app.constants';
 import { LanguageService } from '../../../services/language.service';
+import { LoginService } from '../../../services/login.service';
 import { TranslationService } from '../../../services/translation.service';
 
 @Component({
     selector: 'app-signup',
     standalone: true,
     imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, Message],
-    templateUrl: './signup.component.html',
-    providers: [LoginService, MessageService]
+    templateUrl: './signup.component.html'
 })
 export class SignupComponent implements OnInit {
     @Output() navigateToLogin = new EventEmitter<void>();
@@ -27,7 +26,6 @@ export class SignupComponent implements OnInit {
     constructor(
         private readonly loginService: LoginService,
         private readonly router: Router,
-        private readonly service: MessageService,
         private readonly languageService: LanguageService,
         private readonly translationService: TranslationService
     ) {}
@@ -56,18 +54,19 @@ export class SignupComponent implements OnInit {
         }
 
         this.errorMessage = '';
+
+        if (this.password !== this.repeatPassword) {
+            this.errorMessage = this.translate('auth.signup.confirm.password.mismatch', 'Passwords do not match.');
+            return;
+        }
+
         this.isLoading = true;
         this.loginService
             .signup(this.name, this.email, this.password)
             .pipe(finalize(() => (this.isLoading = false)))
             .subscribe({
                 next: () => {
-                    this.service.add({
-                        severity: 'success',
-                        summary: this.translate('auth.signup.success.summary'),
-                        detail: this.translate('auth.signup.success.detail')
-                    });
-                    this.router.navigate(['/auth/login']);
+                    this.router.navigate([LOGIN_URL]);
                 },
                 error: (error: HttpErrorResponse) => {
                     this.errorMessage = this.resolveSignupErrorMessage(error);
@@ -87,10 +86,10 @@ export class SignupComponent implements OnInit {
         }
 
         if (error.status === 400) {
-            return this.translate('auth.signup.error.validation');
+            return this.translate('auth.signup.error.validation', 'Please review the form fields and try again.');
         }
 
-        return this.translate('app.unexpected.error');
+        return this.translate('app.unexpected.error', 'Unexpected error. Please try again later.');
     }
 
     private loadTranslations() {
@@ -104,18 +103,16 @@ export class SignupComponent implements OnInit {
         });
     }
 
-    translate(key: string) {
-        return this.translations[key];
+    translate(key: string, fallback = key) {
+        return this.translations[key] ?? fallback;
     }
 
-    rediretLogin(event: Event) {
+    redirectToLogin(event: Event) {
         event.preventDefault();
         if (this.navigateToLogin.observed) {
             this.navigateToLogin.emit();
             return;
         }
-        this.router.navigate(['/auth/login']);
+        this.router.navigate([LOGIN_URL]);
     }
-
-    protected readonly onsubmit = onsubmit;
 }
